@@ -15,3 +15,15 @@ code {
 .text-center {
   text-align: center;
 }
+ul {
+  margin-right: 40px;
+  list-style-type: none;
+  text-align:center;
+}
+
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+

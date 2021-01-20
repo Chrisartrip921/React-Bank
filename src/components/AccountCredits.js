@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 function AccountCredits() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -17,43 +17,58 @@ function AccountCredits() {
                     setIsLoaded(true);
                     setCredits(result);
                     let currentTotal = 0;
-                    for(let i = 0; i < result.length; i++) {
-                        currentTotal += result[i].amount; 
+                    for (let i = 0; i < result.length; i++) {
+                        currentTotal += result[i].amount;
                     }
-                    setTotal(currentTotal);  
+                    setTotal(currentTotal);
                     console.log(currentTotal);
                     console.log(result);
                 },
-                
+
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
                 }
             )
-            console.log(credits);
+        console.log(credits);
     }, [])
 
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>;
+        return <div className="text-center">Loading...</div>;
     } else {
         return (
             <div>
-                <Link to="/">Home</Link>
-                <br />
-                <Link to="/userProfile">User Profile</Link>
-                <br/>
-                <Link to="/accountDebits">Account Debit's</Link>
-                <br/>
+                <div>
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/userProfile">User Profile</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/accountDebits">Account Debit's</Link>
+                        </li>
+                    </ul>
+                </div>
+                <h1 className="text-center mt-3 text-primary">ACCOUNT CREDITS</h1>
                 <ul>
                     {credits.map(credit => (
-                        <li key={credit.id}>
-                            {credit.description} <br/> ${credit.amount} <br/> {credit.date} 
-                        </li>
+                        <div className="text-center ">
+                            <div className="card mt-5" style={{ width: 288 }} key={credit.id}>
+                                <div className="card-body">
+                                    <h5 className="card-title">{credit.description}</h5>
+                                    <p className="card-text">${credit.amount}</p>
+                                    <p>{credit.date}</p>
+                                </div>
+                            </div>
+
+                        </div>
                     ))}
                 </ul>
-                {total}
+                <h3 className="p-5 text-center">Total Credits: {total}</h3>
             </div>
         );
     }
